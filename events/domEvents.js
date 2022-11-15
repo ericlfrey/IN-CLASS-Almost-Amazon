@@ -2,10 +2,11 @@ import { filterFavAuthors, deleteSingleAuthor, getAuthors } from '../api/authorD
 import { showAuthors } from '../pages/authors';
 import { deleteBook, getBooks } from '../api/bookData';
 import { showBooks } from '../pages/books';
+import addBookForm from '../components/forms/addBookForm';
+import addAuthorForm from '../components/forms/addAuthorForm';
 
 const domEvents = () => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
-    // TODO: CLICK EVENT FOR DELETING A BOOK
     if (e.target.id.includes('delete-book')) {
       // eslint-disable-next-line no-alert
       if (window.confirm('Want to delete?')) {
@@ -17,9 +18,10 @@ const domEvents = () => {
       }
     }
 
-    // TODO: CLICK EVENT FOR SHOWING FORM FOR ADDING A BOOK
+    // CLICK EVENT FOR SHOWING FORM FOR ADDING A BOOK
     if (e.target.id.includes('add-book-btn')) {
       console.warn('ADD BOOK');
+      addBookForm();
     }
 
     // TODO: CLICK EVENT EDITING/UPDATING A BOOK
@@ -33,7 +35,7 @@ const domEvents = () => {
       console.warn(e.target.id.split('--'));
     }
 
-    // FIXME: ADD CLICK EVENT FOR DELETING AN AUTHOR
+    // CLICK EVENT FOR DELETING AN AUTHOR
     if (e.target.id.includes('delete-author-btn')) {
       // eslint-disable-next-line no-alert
       if (window.confirm('Want to delete?')) {
@@ -45,15 +47,22 @@ const domEvents = () => {
       }
     }
 
-    // FIXME: ADD CLICK EVENT FOR SHOWING FORM FOR ADDING AN AUTHOR
+    // ADD CLICK EVENT FOR SHOWING FORM FOR ADDING AN AUTHOR
     if (e.target.id.includes('add-author-btn')) {
-      console.warn('ADD AUTHOR');
+      addAuthorForm();
     }
+    // FIXME: ADD CLICK EVENT FOR EDITING AN AUTHOR
+    if (e.target.id.includes('update-author')) {
+      console.warn('Update Author', e.target.id.split('--'));
+    }
+    // Filter Authors by Favorite
     if (e.target.id === 'filter-author-btn') {
       filterFavAuthors().then(showAuthors);
     }
-
-    // FIXME: ADD CLICK EVENT FOR EDITING AN AUTHOR
+    // View Author Info
+    if (e.target.id.includes('view-author-btn')) {
+      console.warn('View Author', e.target.id.split('--'));
+    }
   });
 };
 

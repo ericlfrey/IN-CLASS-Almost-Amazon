@@ -108,3 +108,6 @@ body {
 .book-icons {
   margin-top: auto;
 }
+i > span {
+  pointer-events: none;
+}
