@@ -9,7 +9,9 @@ const emptyAuthors = () => {
 const showAuthors = (array) => {
   clearDom();
 
-  const btnString = '<button class="btn btn-success btn-lg mb-4" id="add-author-btn">Add An Author</button>';
+  const btnString = `
+  <button class="btn btn-success btn-lg mb-4" id="add-author-btn">Add An Author</button>
+  <button class="btn btn-success btn-lg mb-4" id="filter-author-btn">Favorite Authors</button>`;
 
   renderToDOM('#add-button', btnString);
 
