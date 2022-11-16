@@ -1,4 +1,6 @@
-import { filterFavAuthors, deleteSingleAuthor, getAuthors, getSingleAuthor } from '../api/authorData';
+import {
+  filterFavAuthors, deleteSingleAuthor, getAuthors, getSingleAuthor
+} from '../api/authorData';
 import { showAuthors } from '../pages/authors';
 import { deleteBook, getBooks, getSingleBook } from '../api/bookData';
 import { showBooks } from '../pages/books';
