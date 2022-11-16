@@ -96,3 +96,18 @@ body {
     white-space: pre-wrap;
   }
 }
+.fav-star{
+  display: flex;
+  justify-content: flex-end;
+  color: goldenrod;
+}
+.card-body{
+  display: flex;
+  flex-direction: column;
+}
+.book-icons {
+  margin-top: auto;
+}
+i > span {
+  pointer-events: none;
+}
