@@ -15,7 +15,7 @@ const getAuthors = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// FIXME: CREATE AUTHOR
+// CREATE AUTHOR
 const createAuthor = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/authors.json`, {
     method: 'POST',
@@ -29,7 +29,7 @@ const createAuthor = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// FIXME: GET SINGLE AUTHOR
+// GET SINGLE AUTHOR
 const getSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/authors/${firebaseKey}.json`, {
     method: 'GET',
@@ -42,7 +42,7 @@ const getSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// FIXME: DELETE AUTHOR
+// DELETE AUTHOR
 const deleteSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/authors/${firebaseKey}.json`, {
     method: 'DELETE',
@@ -55,7 +55,7 @@ const deleteSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// FIXME: UPDATE AUTHOR
+// UPDATE AUTHOR
 const updateAuthor = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/authors/${payload.firebaseKey}.json`, {
     method: 'PATCH',
@@ -72,7 +72,7 @@ const updateAuthor = (payload) => new Promise((resolve, reject) => {
 // TODO: GET A SINGLE AUTHOR'S BOOKS
 const getAuthorBooks = () => { };
 
-// Filter Authors
+// Filter Authors By Favorites
 const filterFavAuthors = () => new Promise((resolve, reject) => {
   fetch(`${endpoint}/authors.json?orderBy="favorite"&equalTo=true`, {
     method: 'GET',

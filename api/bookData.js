@@ -3,7 +3,7 @@ import client from '../utils/client';
 
 const endpoint = client.databaseURL;
 
-// TODO: GET BOOKS
+// GET BOOKS
 const getBooks = () => new Promise((resolve, reject) => {
   fetch(`${endpoint}/books.json`, {
     method: 'GET',
@@ -16,7 +16,7 @@ const getBooks = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// TODO: DELETE BOOK
+// DELETE BOOK
 const deleteBook = (firebaseKey) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/books/${firebaseKey}.json`, {
     method: 'DELETE',
@@ -29,7 +29,7 @@ const deleteBook = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// TODO: GET SINGLE BOOK
+// GET SINGLE BOOK
 const getSingleBook = (firebaseKey) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/books/${firebaseKey}.json`, {
     method: 'GET',
@@ -42,7 +42,7 @@ const getSingleBook = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// TODO: CREATE BOOK
+// CREATE BOOK
 const createBook = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/books.json`, {
     method: 'POST',
@@ -56,7 +56,7 @@ const createBook = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// TODO: UPDATE BOOK
+// UPDATE BOOK
 const updateBook = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/books/${payload.firebaseKey}.json`, {
     method: 'PATCH',
@@ -70,7 +70,7 @@ const updateBook = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// TODO: FILTER BOOKS ON SALE
+// FILTER BOOKS ON SALE
 const booksOnSale = () => new Promise((resolve, reject) => {
   fetch(`${endpoint}/books.json?orderBy="sale"&equalTo=true`, {
     method: 'GET',
