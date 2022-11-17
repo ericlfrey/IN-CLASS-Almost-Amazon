@@ -1,3 +1,5 @@
+// import { showBooks } from '../pages/books';
+import { showBooks } from '../pages/books';
 import client from '../utils/client';
 // API CALLS FOR BOOKS
 
@@ -84,11 +86,20 @@ const booksOnSale = () => new Promise((resolve, reject) => {
 });
 // TODO: STRETCH...SEARCH BOOKS
 
+const searchBooks = () => {
+  const searchValue = document.querySelector('#search').value.toLowerCase();
+  getBooks().then((books) => {
+    const filteredBooks = books.filter((item) => item.title.toLowerCase().includes(searchValue));
+    showBooks(filteredBooks);
+  });
+};
+
 export {
   getBooks,
   createBook,
   booksOnSale,
   deleteBook,
   getSingleBook,
-  updateBook
+  updateBook,
+  searchBooks
 };
