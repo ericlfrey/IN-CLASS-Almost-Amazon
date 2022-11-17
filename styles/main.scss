@@ -111,3 +111,12 @@ body {
 i > span {
   pointer-events: none;
 }
+
+.view-author-books-container{
+  display: flex;
+  flex-direction: column;
+}
+.author-books-cards{
+  display: flex;
+  flex-wrap: wrap;
+}

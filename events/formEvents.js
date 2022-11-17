@@ -18,7 +18,6 @@ const formEvents = () => {
       };
       createBook(payload).then(({ name }) => {
         const patchPayload = { firebaseKey: name };
-
         updateBook(patchPayload).then(() => {
           getBooks().then(showBooks);
         });
