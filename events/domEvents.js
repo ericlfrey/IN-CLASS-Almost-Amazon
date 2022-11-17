@@ -9,6 +9,7 @@ import { showBooks } from '../pages/books';
 import addBookForm from '../components/forms/addBookForm';
 import addAuthorForm from '../components/forms/addAuthorForm';
 import viewBook from '../pages/viewBook';
+import viewAuthorBooks from '../pages/viewAuthorBooks';
 
 const domEvents = () => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
@@ -52,6 +53,7 @@ const domEvents = () => {
           });
         });
       });
+      window.scrollTo(0, 0);
     }
 
     // CLICK EVENT FOR DELETING AN AUTHOR
@@ -81,7 +83,12 @@ const domEvents = () => {
     // View Author Info
     if (e.target.id.includes('view-author-btn')) {
       const [, authorId] = e.target.id.split('--');
-      getAuthorBooks(authorId).then(showBooks);
+      getAuthorBooks(authorId).then((books) => {
+        getSingleAuthor(authorId).then((author) => {
+          viewAuthorBooks(author, books);
+        });
+      });
+      window.scrollTo(0, 0);
     }
   });
 };

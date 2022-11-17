@@ -15,7 +15,6 @@ const selectAuthor = (authorId) => {
               ${author.first_name} ${author.last_name}
           </option>`;
     });
-
     domString += '</select>';
 
     renderToDOM('#select-author', domString);
