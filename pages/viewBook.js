@@ -9,8 +9,12 @@ const viewBook = (obj) => {
    <div class="d-flex flex-column">
      <img src=${obj.image} alt=${obj.title} style="width: 300px;">
      <div class="mt-5">
-       <i id="edit-book-btn--${obj.firebaseKey}" class="fas fa-edit btn btn-info"></i>
-       <i id="delete-book--${obj.firebaseKey}" class="btn btn-danger fas fa-trash-alt"></i>
+      <i id="edit-book-btn--${obj.firebaseKey}"  class="btn btn-info">
+        <span><i class= "fas fa-edit"></i></span>
+      </i>
+      <i id="delete-book-btn--${obj.firebaseKey}"  class="btn btn-danger">
+        <span><i class= "fas fa-trash-alt"></i></span>
+      </i>
      </div>
    </div>
    <div class="text-white ms-5 details">

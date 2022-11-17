@@ -1,11 +1,14 @@
 import {
-  filterFavAuthors, deleteSingleAuthor, getAuthors, getSingleAuthor
+  filterFavAuthors, deleteSingleAuthor, getAuthors, getSingleAuthor, getAuthorBooks
 } from '../api/authorData';
 import { showAuthors } from '../pages/authors';
-import { deleteBook, getBooks, getSingleBook } from '../api/bookData';
+import {
+  deleteBook, getBooks, getSingleBook, updateBook
+} from '../api/bookData';
 import { showBooks } from '../pages/books';
 import addBookForm from '../components/forms/addBookForm';
 import addAuthorForm from '../components/forms/addAuthorForm';
+import viewBook from '../pages/viewBook';
 
 const domEvents = () => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
@@ -31,8 +34,24 @@ const domEvents = () => {
     }
     // TODO: CLICK EVENT FOR VIEW BOOK DETAILS
     if (e.target.id.includes('view-book-btn')) {
-      console.warn('VIEW BOOK', e.target.id);
-      console.warn(e.target.id.split('--'));
+      const [, firebaseKey] = e.target.id.split('--');
+      getSingleBook(firebaseKey).then((book) => {
+        const authorId = book.author_id;
+        getSingleAuthor(authorId).then((author) => {
+          const payload = {
+            authorObject: {
+              first_name: author.first_name,
+              last_name: author.last_name,
+              email: author.email,
+              favorite: author.favorite
+            },
+            firebaseKey
+          };
+          updateBook(payload).then(() => {
+            getSingleBook(firebaseKey).then(viewBook);
+          });
+        });
+      });
     }
 
     // CLICK EVENT FOR DELETING AN AUTHOR
@@ -61,7 +80,8 @@ const domEvents = () => {
     }
     // View Author Info
     if (e.target.id.includes('view-author-btn')) {
-      console.warn('View Author', e.target.id.split('--'));
+      const [, authorId] = e.target.id.split('--');
+      getAuthorBooks(authorId).then(showBooks);
     }
   });
 };

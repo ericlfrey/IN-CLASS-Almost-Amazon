@@ -1,6 +1,6 @@
 import { signOut } from '../utils/auth';
 import { showBooks } from '../pages/books';
-import { getBooks, booksOnSale } from '../api/bookData';
+import { getBooks, booksOnSale, searchBooks } from '../api/bookData';
 import { getAuthors } from '../api/authorData';
 import { showAuthors } from '../pages/authors';
 
@@ -25,22 +25,17 @@ const navigationEvents = () => {
   // 2. Convert the response to an array because that is what the makeAuthors function is expecting
   // 3. If the array is empty because there are no authors, make sure to use the emptyAuthor function
   document.querySelector('#authors').addEventListener('click', () => {
-    getAuthors().then((authors) => showAuthors(authors));
+    getAuthors().then(showAuthors);
   });
 
   // STRETCH: SEARCH
   document.querySelector('#search').addEventListener('keyup', (e) => {
-    const searchValue = document.querySelector('#search').value.toLowerCase();
-
     // WHEN THE USER PRESSES ENTER, MAKE THE API CALL AND CLEAR THE INPUT
     if (e.keyCode === 13) {
+      searchBooks();
       // MAKE A CALL TO THE API TO FILTER ON THE BOOKS
       // IF THE SEARCH DOESN'T RETURN ANYTHING, SHOW THE EMPTY STORE
       // OTHERWISE SHOW THE STORE
-      getBooks().then((books) => {
-        const filteredBooks = books.filter((item) => item.title.toLowerCase().includes(searchValue));
-        showBooks(filteredBooks);
-      });
 
       document.querySelector('#search').value = '';
     }
