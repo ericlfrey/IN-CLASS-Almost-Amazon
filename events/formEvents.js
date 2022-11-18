@@ -1,5 +1,9 @@
-import { createAuthor, getAuthors, updateAuthor } from '../api/authorData';
-import { createBook, getBooks, updateBook } from '../api/bookData';
+import {
+  createAuthor, getAuthors, updateAuthor
+} from '../api/authorData';
+import {
+  createBook, getBooks, getSingleBook, updateBook
+} from '../api/bookData';
 import { showAuthors } from '../pages/authors';
 import { showBooks } from '../pages/books';
 
@@ -17,9 +21,11 @@ const formEvents = () => {
         sale: document.querySelector('#sale').checked
       };
       createBook(payload).then(({ name }) => {
-        const patchPayload = { firebaseKey: name };
-        updateBook(patchPayload).then(() => {
-          getBooks().then(showBooks);
+        getSingleBook(name).then(() => {
+          const patchPayload = { firebaseKey: name };
+          updateBook(patchPayload).then(() => {
+            getBooks().then(showBooks);
+          });
         });
       });
     }
