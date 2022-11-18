@@ -4,7 +4,6 @@ import renderToDOM from '../../utils/renderToDom';
 const addAuthorForm = (obj = {}) => {
   clearDom();
   const domString = `
-    <h2>Add Author</h2>
     <form id="${obj.firebaseKey ? `update-author--${obj.firebaseKey}` : 'submit-author'}" class="mb-4">
       <div class="form-group">
         <label for="first_name">First Name</label>

@@ -6,7 +6,6 @@ import selectAuthor from './selectAuthor';
 const addBookForm = (obj = {}) => {
   clearDom();
   const domString = `
-    <h2>Add Book</h2>
     <form id="${obj.firebaseKey ? `update-book--${obj.firebaseKey}` : 'submit-book'}" class="mb-4">
       <div class="form-group">
         <label for="title">Book Title</label>
