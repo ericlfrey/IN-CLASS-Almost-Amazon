@@ -1,15 +1,15 @@
 import {
-  filterFavAuthors, deleteSingleAuthor, getAuthors, getSingleAuthor, getAuthorBooks
+  filterFavAuthors, getAuthors, getSingleAuthor, getAuthorBooks
 } from '../api/authorData';
 import { showAuthors } from '../pages/authors';
 import {
-  deleteBook, getBooks, getSingleBook, updateBook
+  deleteBook, getBooks, getSingleBook
 } from '../api/bookData';
 import { showBooks } from '../pages/books';
 import addBookForm from '../components/forms/addBookForm';
 import addAuthorForm from '../components/forms/addAuthorForm';
-import viewBook from '../pages/viewBook';
 import viewAuthorBooks from '../pages/viewAuthorBooks';
+import { deleteAuthorBooksRelationship, mergeAuthorBooks } from '../api/mergedData';
 
 const domEvents = () => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
@@ -33,25 +33,16 @@ const domEvents = () => {
       const [, firebaseKey] = e.target.id.split('--');
       getSingleBook(firebaseKey).then((bookObj) => addBookForm(bookObj));
     }
-    // TODO: CLICK EVENT FOR VIEW BOOK DETAILS
+    // CLICK EVENT FOR VIEW BOOK DETAILS
     if (e.target.id.includes('view-book-btn')) {
       const [, firebaseKey] = e.target.id.split('--');
       getSingleBook(firebaseKey).then((book) => {
-        const authorId = book.author_id;
-        getSingleAuthor(authorId).then((author) => {
-          const payload = {
-            authorObject: {
-              first_name: author.first_name,
-              last_name: author.last_name,
-              email: author.email,
-              favorite: author.favorite
-            },
-            firebaseKey
-          };
-          updateBook(payload).then(() => {
-            getSingleBook(firebaseKey).then(viewBook);
-          });
-        });
+        if (book.author_id) {
+          mergeAuthorBooks(firebaseKey);
+          // eslint-disable-next-line no-alert
+        } else if (window.confirm('Want to add an Author?')) {
+          addAuthorForm();
+        }
       });
       window.scrollTo(0, 0);
     }
@@ -61,7 +52,7 @@ const domEvents = () => {
       // eslint-disable-next-line no-alert
       if (window.confirm('Want to delete?')) {
         const [, firebaseKey] = e.target.id.split('--');
-        deleteSingleAuthor(firebaseKey).then(() => {
+        deleteAuthorBooksRelationship(firebaseKey).then(() => {
           getAuthors().then(showAuthors);
         });
       }
