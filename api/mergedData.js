@@ -1,8 +1,7 @@
-import viewBook from '../pages/viewBook';
 import { deleteSingleAuthor, getAuthorBooks, getSingleAuthor } from './authorData';
-import { deleteBook, getSingleBook, updateBook } from './bookData';
+import { deleteBook, getSingleBook } from './bookData';
 
-// for merged promises
+// When Author is Deleted, this Also Deletes Their Books
 const deleteAuthorBooksRelationship = (firbaseKey) => new Promise((resolve, reject) => {
   getAuthorBooks(firbaseKey).then((authorBooksArray) => {
     const deleteBookPromises = authorBooksArray.map((book) => deleteBook(book.firebaseKey));
@@ -10,27 +9,41 @@ const deleteAuthorBooksRelationship = (firbaseKey) => new Promise((resolve, reje
     Promise.all(deleteBookPromises).then(() => {
       deleteSingleAuthor(firbaseKey).then(resolve);
     });
-  }).catch(reject);
+  })
+    .catch(reject);
 });
+
 // Merging Author and Book info- called on View Book Button
-const mergeAuthorBooks = (firebaseKey) => {
-  getSingleBook(firebaseKey).then((book) => {
-    const authorId = book.author_id;
-    getSingleAuthor(authorId).then((author) => {
-      const payload = {
-        authorObject: {
-          first_name: author.first_name,
-          last_name: author.last_name,
-          email: author.email,
-          favorite: author.favorite
-        },
-        firebaseKey
-      };
-      updateBook(payload).then(() => {
-        getSingleBook(firebaseKey).then(viewBook);
-      });
-    });
-  });
+
+// // *One way to do it:*
+// const getBookDetails = (firebaseKey) => new Promise((resolve, reject) => {
+//   getSingleBook(firebaseKey).then((bookObject) => {
+//     getSingleAuthor(bookObject.author_id)
+//       .then((authorObject) => resolve({ ...bookObject, authorObject }));
+//   }).catch(reject);
+// });
+
+// Using async await
+const getBookDetails = async (firebaseKey) => {
+  const bookObject = await getSingleBook(firebaseKey);
+  const authorObject = await getSingleAuthor(bookObject.author_id);
+  return { ...bookObject, authorObject };
 };
 
-export { deleteAuthorBooksRelationship, mergeAuthorBooks };
+// Merging Author and Books info- called on View Author Button
+
+// // *One way to do it:*
+// const getAuthorDetails = (firebaseKey) => new Promise((resolve, reject) => {
+//   getSingleAuthor(firebaseKey).then((authorObject) => {
+//     getAuthorBooks(firebaseKey)
+//       .then((booksArray) => resolve({ ...authorObject, booksArray }));
+//   }).catch(reject);
+// });
+
+const getAuthorDetails = async (firebaseKey) => {
+  const authorObject = await getSingleAuthor(firebaseKey);
+  const booksArray = await getAuthorBooks(firebaseKey);
+  return { ...authorObject, booksArray };
+};
+
+export { deleteAuthorBooksRelationship, getBookDetails, getAuthorDetails };

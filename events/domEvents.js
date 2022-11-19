@@ -1,5 +1,5 @@
 import {
-  filterFavAuthors, getAuthors, getSingleAuthor, getAuthorBooks
+  filterFavAuthors, getAuthors, getSingleAuthor
 } from '../api/authorData';
 import { showAuthors } from '../pages/authors';
 import {
@@ -9,7 +9,8 @@ import { showBooks } from '../pages/books';
 import addBookForm from '../components/forms/addBookForm';
 import addAuthorForm from '../components/forms/addAuthorForm';
 import viewAuthorBooks from '../pages/viewAuthorBooks';
-import { deleteAuthorBooksRelationship, mergeAuthorBooks } from '../api/mergedData';
+import { deleteAuthorBooksRelationship, getBookDetails, getAuthorDetails } from '../api/mergedData';
+import viewBook from '../pages/viewBook';
 
 const domEvents = () => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
@@ -38,7 +39,7 @@ const domEvents = () => {
       const [, firebaseKey] = e.target.id.split('--');
       getSingleBook(firebaseKey).then((book) => {
         if (book.author_id) {
-          mergeAuthorBooks(firebaseKey);
+          getBookDetails(firebaseKey).then(viewBook);
           // eslint-disable-next-line no-alert
         } else if (window.confirm('Want to add an Author?')) {
           addAuthorForm();
@@ -73,12 +74,8 @@ const domEvents = () => {
     }
     // View Author Info
     if (e.target.id.includes('view-author-btn')) {
-      const [, authorId] = e.target.id.split('--');
-      getAuthorBooks(authorId).then((books) => {
-        getSingleAuthor(authorId).then((author) => {
-          viewAuthorBooks(author, books);
-        });
-      });
+      const [, firebaseKey] = e.target.id.split('--');
+      getAuthorDetails(firebaseKey).then(viewAuthorBooks);
       window.scrollTo(0, 0);
     }
   });
