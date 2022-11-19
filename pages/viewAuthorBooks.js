@@ -2,17 +2,17 @@ import clearDom from '../utils/clearDom';
 import renderToDOM from '../utils/renderToDom';
 import { emptyBooks } from './books';
 
-const viewAuthorBooks = (author, array) => {
+const viewAuthorBooks = (authorObject) => {
   clearDom();
-  if (array.length === 0) {
+  if (authorObject.booksArray.length === 0) {
     emptyBooks();
   } else {
     const str = `
     <div class="view-author-books-container">
       <div class="text-white ms-5 details">
-        <h5>${author.first_name} ${author.last_name} ${author.favorite ? '<span class="badge bg-danger"><i class="fa fa-heart" aria-hidden="true"></i></span>' : ''}</h5>
+        <h5>${authorObject.first_name} ${authorObject.last_name} ${authorObject.favorite ? '<span class="badge bg-danger"><i class="fa fa-heart" aria-hidden="true"></i></span>' : ''}</h5>
         <div>
-          Author Email: <a href="mailto:${author.email}">${author.email}</a>
+          Author Email: <a href="mailto:${authorObject.email}">${authorObject.email}</a>
         </div>
         <hr>
       </div>
@@ -20,7 +20,7 @@ const viewAuthorBooks = (author, array) => {
     </div>`;
     renderToDOM('#store', str);
     let domString = '';
-    array.forEach((item) => {
+    authorObject.booksArray.forEach((item) => {
       domString += `
       <div class="card">
         <img class="card-img-top" src=${item.image} alt=${item.title} style="height: 400px;">
