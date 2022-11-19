@@ -5,7 +5,7 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 const path = require('path');
-const dotenv = require('dotenv').config({path: __dirname + '/.env'});
+const dotenv = require('dotenv').config({ path: __dirname + '/.env' });
 
 module.exports = {
   entry: './public/main.js',
@@ -13,13 +13,14 @@ module.exports = {
     new HtmlWebPackPlugin({
       hash: true,
       template: "./public/index.html",
+      favicon: "./public/images.favicon.ico",
       filename: "./index.html"
     }),
     new MiniCssExtractPlugin({
       filename: "[name].css",
       chunkFilename: "[id].css"
     }),
-    new webpack.DefinePlugin( {
+    new webpack.DefinePlugin({
       'process.env': JSON.stringify(process.env || dotenv.parsed),
     }),
     new ESLintPlugin()
