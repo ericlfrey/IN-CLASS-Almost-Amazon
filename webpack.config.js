@@ -13,7 +13,7 @@ module.exports = {
     new HtmlWebPackPlugin({
       hash: true,
       template: "./public/index.html",
-      favicon: "./public/images.favicon.ico",
+      favicon: "./public/images/favicon.ico",
       filename: "./index.html"
     }),
     new MiniCssExtractPlugin({
