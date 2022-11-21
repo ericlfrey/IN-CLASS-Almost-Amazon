@@ -19,8 +19,9 @@ const showBooks = (array) => {
       domString += `
       <div class="card">
         <img class="card-img-top" src=${item.image} alt=${item.title} style="height: 400px;">
-        <div class="card-body" style="height: 250px;">
+        <div class="card-body book-card" style="height: 275px;">
           <h6 class="card-title">${item.title}</h6>
+          <h6 class="card-title">${item.authorObject.first_name} ${item.authorObject.last_name}</h6>          
           <p class="card-text bold">${item.sale ? `<span class="badge badge-info sale-badge"><i class="fa fa-bell" aria-hidden="true"></i> Sale</span> $${item.price}` : `$${item.price}`}</p>
           <hr>
           <div class="book-icons">
@@ -38,6 +39,7 @@ const showBooks = (array) => {
       </div>`;
     });
     renderToDOM('#store', domString);
+    window.scrollTo(0, 0);
   }
 };
 

@@ -1,8 +1,9 @@
-// import { showBooks } from '../pages/books';
 import {
   deleteSingleAuthor, getAuthorBooks, getSingleAuthor
 } from './authorData';
-import { deleteBook, getBooks, getSingleBook } from './bookData';
+import {
+  booksOnSale, deleteBook, getBooks, getSingleBook
+} from './bookData';
 
 // When Author is Deleted, this Also Deletes Their Books
 const deleteAuthorBooksRelationship = (firbaseKey) => new Promise((resolve, reject) => {
@@ -16,7 +17,7 @@ const deleteAuthorBooksRelationship = (firbaseKey) => new Promise((resolve, reje
     .catch(reject);
 });
 
-// Merging Author and Book info- called on View Book Button
+// Merging Author and Single Book info- called on View Book Button
 
 // // *One way to do it:*
 // const getBookDetails = (firebaseKey) => new Promise((resolve, reject) => {
@@ -34,28 +35,27 @@ const getBookDetails = async (firebaseKey) => {
 };
 
 // Merging Author and Books info- called on View Author Button
-
-// // *One way to do it:*
-// const getAuthorDetails = (firebaseKey) => new Promise((resolve, reject) => {
-//   getSingleAuthor(firebaseKey).then((authorObject) => {
-//     getAuthorBooks(firebaseKey)
-//       .then((booksArray) => resolve({ ...authorObject, booksArray }));
-//   }).catch(reject);
-// });
-
 const getAuthorDetails = async (firebaseKey) => {
   const authorObject = await getSingleAuthor(firebaseKey);
   const booksArray = await getAuthorBooks(firebaseKey);
   return { ...authorObject, booksArray };
 };
 
-const searchBooks = () => new Promise((resolve, reject) => {
+// Merging All Books With Authors- Uses getBookDetails
+const getBooksWithAuthors = () => new Promise((resolve, reject) => {
   getBooks().then((books) => {
+    const bookArr = books.map((book) => getBookDetails(book.firebaseKey));
+    Promise.all(bookArr).then(resolve);
+  }).catch(reject);
+});
+// Merging Books on Sale with Authors
+const filterBooksWithAuthors = () => new Promise((resolve, reject) => {
+  booksOnSale().then((books) => {
     const bookArr = books.map((book) => getBookDetails(book.firebaseKey));
     Promise.all(bookArr).then(resolve);
   }).catch(reject);
 });
 
 export {
-  deleteAuthorBooksRelationship, getBookDetails, getAuthorDetails, searchBooks
+  deleteAuthorBooksRelationship, getBookDetails, getAuthorDetails, getBooksWithAuthors, filterBooksWithAuthors
 };
