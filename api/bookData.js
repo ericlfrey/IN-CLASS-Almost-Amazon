@@ -1,5 +1,5 @@
 // import { showBooks } from '../pages/books';
-import { showBooks } from '../pages/books';
+// import { showBooks } from '../pages/books';
 import client from '../utils/client';
 // API CALLS FOR BOOKS
 
@@ -92,13 +92,19 @@ const booksOnSale = () => new Promise((resolve, reject) => {
 });
 // STRETCH...SEARCH BOOKS
 
-const searchBooks = () => {
-  const searchValue = document.querySelector('#search').value.toLowerCase();
-  getBooks().then((books) => {
-    const filteredBooks = books.filter((item) => item.title.toLowerCase().includes(searchValue));
-    showBooks(filteredBooks);
-  });
-};
+// const searchBooks = () => {
+//   const searchValue = document.querySelector('#search').value.toLowerCase();
+//   const newBooks = [];
+//   getBooks().then((books) => {
+//     books.forEach((book) => {
+//       getBookDetails(book.firebaseKey).then((obj) => {
+//         newBooks.push(obj);
+//       });
+//     });
+//   });
+//   const filteredBooks = newBooks.filter((item) => item.title.toLowerCase().includes(searchValue) || item.authorObject.first_name.toLowerCase().includes(searchValue) || item.authorObject.last_name.toLowerCase().includes(searchValue));
+//   showBooks(filteredBooks);
+// };
 
 export {
   getBooks,
@@ -106,6 +112,5 @@ export {
   booksOnSale,
   deleteBook,
   getSingleBook,
-  updateBook,
-  searchBooks
+  updateBook
 };

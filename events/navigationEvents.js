@@ -1,8 +1,9 @@
 import { signOut } from '../utils/auth';
 import { showBooks } from '../pages/books';
-import { getBooks, booksOnSale, searchBooks } from '../api/bookData';
+import { getBooks, booksOnSale } from '../api/bookData';
 import { getAuthors } from '../api/authorData';
 import { showAuthors } from '../pages/authors';
+import { searchBooks } from '../api/mergedData';
 
 // navigation events
 const navigationEvents = () => {
@@ -15,28 +16,26 @@ const navigationEvents = () => {
     booksOnSale().then(showBooks);
   });
 
-  // ALL BOOKS
+  // SHOW ALL BOOKS
   document.querySelector('#all-books').addEventListener('click', () => {
     getBooks().then(showBooks);
   });
 
-  // FIXME: STUDENTS Create an event listener for the Authors
-  // 1. When a user clicks the authors link, make a call to firebase to get all authors *** DONE
-  // 2. Convert the response to an array because that is what the makeAuthors function is expecting
-  // 3. If the array is empty because there are no authors, make sure to use the emptyAuthor function
+  // SHOW ALL AUTHORS
   document.querySelector('#authors').addEventListener('click', () => {
     getAuthors().then(showAuthors);
   });
 
-  // STRETCH: SEARCH
+  // SEARCH BOOKS
   document.querySelector('#search').addEventListener('keyup', (e) => {
-    // WHEN THE USER PRESSES ENTER, MAKE THE API CALL AND CLEAR THE INPUT
     if (e.keyCode === 13) {
-      searchBooks();
-      // MAKE A CALL TO THE API TO FILTER ON THE BOOKS
-      // IF THE SEARCH DOESN'T RETURN ANYTHING, SHOW THE EMPTY STORE
-      // OTHERWISE SHOW THE STORE
-
+      const searchValue = document.querySelector('#search').value.toLowerCase();
+      searchBooks().then((arr) => {
+        const filteredBooks = arr.filter((item) => item.title.toLowerCase().includes(searchValue)
+          || item.authorObject.first_name.toLowerCase().includes(searchValue)
+          || item.authorObject.last_name.toLowerCase().includes(searchValue));
+        showBooks(filteredBooks);
+      });
       document.querySelector('#search').value = '';
     }
   });

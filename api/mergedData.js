@@ -1,5 +1,8 @@
-import { deleteSingleAuthor, getAuthorBooks, getSingleAuthor } from './authorData';
-import { deleteBook, getSingleBook } from './bookData';
+// import { showBooks } from '../pages/books';
+import {
+  deleteSingleAuthor, getAuthorBooks, getSingleAuthor
+} from './authorData';
+import { deleteBook, getBooks, getSingleBook } from './bookData';
 
 // When Author is Deleted, this Also Deletes Their Books
 const deleteAuthorBooksRelationship = (firbaseKey) => new Promise((resolve, reject) => {
@@ -46,4 +49,13 @@ const getAuthorDetails = async (firebaseKey) => {
   return { ...authorObject, booksArray };
 };
 
-export { deleteAuthorBooksRelationship, getBookDetails, getAuthorDetails };
+const searchBooks = () => new Promise((resolve, reject) => {
+  getBooks().then((books) => {
+    const bookArr = books.map((book) => getBookDetails(book.firebaseKey));
+    Promise.all(bookArr).then(resolve);
+  }).catch(reject);
+});
+
+export {
+  deleteAuthorBooksRelationship, getBookDetails, getAuthorDetails, searchBooks
+};
