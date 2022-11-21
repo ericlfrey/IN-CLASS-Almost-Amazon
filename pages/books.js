@@ -39,6 +39,7 @@ const showBooks = (array) => {
       </div>`;
     });
     renderToDOM('#store', domString);
+    window.scrollTo(0, 0);
   }
 };
 

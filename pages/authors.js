@@ -44,6 +44,7 @@ const showAuthors = (array) => {
     `;
     });
     renderToDOM('#store', domString);
+    window.scrollTo(0, 0);
   }
 };
 
