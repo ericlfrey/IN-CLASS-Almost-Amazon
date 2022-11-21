@@ -1,71 +1,26 @@
 # Almost Amazon
-We are building an admin app that allows a store owner to login to the app and manage books and authors.
 
-[User Restricted Deployed Sample](https://almost-amazon-webpack5.netlify.app/#)
+This was an exercise for NSS where I built an admin app that allows a store owner to login to the app and manage books and authors.
 
-<img width="1310" alt="aass" src="https://user-images.githubusercontent.com/29741570/199130815-08170a17-6c8f-4045-9703-79e94546b8cc.png">
+[View Deployed App](https://app.netlify.com/sites/elfrey-almost-amazon/overview)
 
-We will be learning about the following:
+## About the User
+
+As a developer, it is important to understand the concepts / importance of Databases and how to access them, and Promises for allowing the page to load while the info from the database can be gathered. In this project, I learned about the following:
 - XHR requests
 - Promises
 - Firebase
 - ERDs
 - Postman
 - CRUD
+- Promise.all()
+- async/await
+- .map()
 
-## Get Started
-- Clone your repo
-- Install app dependencies: `npm i`
-- Start your server: `npm start`
-  - The server starts the only error you should see is this one (which will be fixed after the Firebase Walkthrough is completed):
-    ```js
-    {
-      code: "auth/invalid-api-key",
-      message: "Your API key is invalid, please check you have copied it correctly.",
-      a: null
-    }
-    ```
-- Change `.sample.env` file name to `.env`
+## Features
 
+After a successful login, the user is able to View the current available books, as well as any Authors assosiated with the Books. The user can edit both the Book and The Author Details, as well as adding a new Book or Author to the database. The user may also delete books individually, or by deleting an author, also removing all assosiated books. Using Merged Data, the Book cards display both the Book title as well as the Author name. The Author details show all books assosiated with the Author. Lastly, there is a search feature that searches for Books based on Book title, and Author names. This app acheives full CRUD.
 
-## TODO 1 - Get Setup
-In preparation for next week, complete the following in lab:
-- [Firebase Walkthrough Videos ~15 minutes](https://vimeo.com/showcase/codetracker-firebase)
-  - Create a project called `Almost Amazon`
-  - Add a Realtime Database
-  - Create an app called `Almost Amazon`
-  - Add Auth
-  - Add the Keys to your `.env` file
-  - Upload the sample data to Firebase
-- Test the Firebase Setup
-  - Start and stop your server
-  - Go to the application it should look like this:
- 
-<img width="400" alt="Login Screen" src="https://user-images.githubusercontent.com/29741570/199130975-f6fb8884-ed5b-4d8b-9b7f-5a49b6f93975.png">
-
-  - The API key error should also be gone
-  - Clicking the button should open up a Google Popup. Select a user to sign in with.
-
-    <img width="400" alt="Google Pop-Up" src="https://user-images.githubusercontent.com/29741570/199131213-6eb5c2cf-6353-4ec1-a543-312c61c7633d.png">
-
-  - After signing in, there should be a Navbar
-    - If your screen size is small, the Navbar might be collapsed like in the image below. Click on the hamburger button to open it.
- 
-<img width="400" alt="Logged In Screen" src="https://user-images.githubusercontent.com/29741570/199130976-2136b3dc-a7ca-46d6-a335-efc72fdf79e1.png">  
-  - Click on the Log Out Button
-
- 
- <img width="400" alt="Logout Button" src="https://user-images.githubusercontent.com/29741570/199130970-21e7de43-b6b4-4f01-aeec-961bccf64841.png">
-  
-  - This should bring back the Login Button
-
-## TODO 2 - Look at the Code...
-  - Take a look at the layout of the application. Start in `main.js` and follow the flow to get up to speed.
-    - Look at the components, events, helpers, and views
-
-## Technologies used
-- Javascript
-- Firebase Auth
-- Firebase Realtime Database
-- Bootstrap 5
-- Webpack 5
+## Code Snippets
+<img src="https://user-images.githubusercontent.com/107942776/203168549-5c1353d5-fc7d-4b11-84e7-6e49bff46a1c.png" width="500"/>
+<img src="https://user-images.githubusercontent.com/107942776/203168563-3ebb80bb-cd8b-43bc-b05e-0dabdd35485c.png" width="500"/>
