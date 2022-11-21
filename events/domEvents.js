@@ -9,7 +9,9 @@ import { showBooks } from '../pages/books';
 import addBookForm from '../components/forms/addBookForm';
 import addAuthorForm from '../components/forms/addAuthorForm';
 import viewAuthorBooks from '../pages/viewAuthorBooks';
-import { deleteAuthorBooksRelationship, getBookDetails, getAuthorDetails } from '../api/mergedData';
+import {
+  deleteAuthorBooksRelationship, getBookDetails, getAuthorDetails
+} from '../api/mergedData';
 import viewBook from '../pages/viewBook';
 
 const domEvents = () => {
