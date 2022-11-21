@@ -3,14 +3,14 @@ import {
 } from '../api/authorData';
 import { showAuthors } from '../pages/authors';
 import {
-  deleteBook, getBooks, getSingleBook
+  deleteBook, getSingleBook
 } from '../api/bookData';
 import { showBooks } from '../pages/books';
 import addBookForm from '../components/forms/addBookForm';
 import addAuthorForm from '../components/forms/addAuthorForm';
 import viewAuthorBooks from '../pages/viewAuthorBooks';
 import {
-  deleteAuthorBooksRelationship, getBookDetails, getAuthorDetails
+  deleteAuthorBooksRelationship, getBookDetails, getAuthorDetails, getBooksWithAuthors
 } from '../api/mergedData';
 import viewBook from '../pages/viewBook';
 
@@ -21,7 +21,7 @@ const domEvents = () => {
       if (window.confirm('Want to delete?')) {
         const [, firebaseKey] = e.target.id.split('--');
         deleteBook(firebaseKey).then(() => {
-          getBooks().then(showBooks);
+          getBooksWithAuthors().then(showBooks);
         });
       }
     }

@@ -90,21 +90,6 @@ const booksOnSale = () => new Promise((resolve, reject) => {
     .then((data) => resolve(Object.values(data)))
     .catch(reject);
 });
-// STRETCH...SEARCH BOOKS
-
-// const searchBooks = () => {
-//   const searchValue = document.querySelector('#search').value.toLowerCase();
-//   const newBooks = [];
-//   getBooks().then((books) => {
-//     books.forEach((book) => {
-//       getBookDetails(book.firebaseKey).then((obj) => {
-//         newBooks.push(obj);
-//       });
-//     });
-//   });
-//   const filteredBooks = newBooks.filter((item) => item.title.toLowerCase().includes(searchValue) || item.authorObject.first_name.toLowerCase().includes(searchValue) || item.authorObject.last_name.toLowerCase().includes(searchValue));
-//   showBooks(filteredBooks);
-// };
 
 export {
   getBooks,

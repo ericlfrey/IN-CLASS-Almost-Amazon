@@ -2,8 +2,9 @@ import {
   createAuthor, getAuthors, updateAuthor
 } from '../api/authorData';
 import {
-  createBook, getBooks, getSingleBook, updateBook
+  createBook, getSingleBook, updateBook
 } from '../api/bookData';
+import { getBooksWithAuthors } from '../api/mergedData';
 import { showAuthors } from '../pages/authors';
 import { showBooks } from '../pages/books';
 
@@ -24,7 +25,7 @@ const formEvents = () => {
         getSingleBook(name).then(() => {
           const patchPayload = { firebaseKey: name };
           updateBook(patchPayload).then(() => {
-            getBooks().then(showBooks);
+            getBooksWithAuthors().then(showBooks);
           });
         });
       });
@@ -44,7 +45,7 @@ const formEvents = () => {
       };
 
       updateBook(payload).then(() => {
-        getBooks().then(showBooks);
+        getBooksWithAuthors().then(showBooks);
       });
     }
 

@@ -1,4 +1,4 @@
-import { getBooks } from '../api/bookData';
+import { getBooksWithAuthors } from '../api/mergedData';
 import logoutButton from '../components/buttons/logoutButton';
 import domBuilder from '../components/shared/domBuilder';
 import navBar from '../components/shared/navBar';
@@ -16,7 +16,7 @@ const startApp = () => {
   navigationEvents(); // ATTACH THE EVENT LISTENERS TO THE NAVBAR
 
   // Put all books on the DOM on App load
-  getBooks().then((books) => showBooks(books));
+  getBooksWithAuthors().then((books) => showBooks(books));
 };
 
 export default startApp;
