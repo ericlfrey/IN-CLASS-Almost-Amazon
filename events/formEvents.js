@@ -8,7 +8,7 @@ import { getBooksWithAuthors } from '../api/mergedData';
 import { showAuthors } from '../pages/authors';
 import { showBooks } from '../pages/books';
 
-const formEvents = () => {
+const formEvents = (user) => {
   document.querySelector('#main-container').addEventListener('submit', (e) => {
     e.preventDefault();
     // CLICK EVENT FOR SUBMITTING FORM FOR ADDING A BOOK
@@ -19,13 +19,14 @@ const formEvents = () => {
         image: document.querySelector('#image').value,
         price: document.querySelector('#price').value,
         author_id: document.querySelector('#author_id').value,
-        sale: document.querySelector('#sale').checked
+        sale: document.querySelector('#sale').checked,
+        uid: user.uid
       };
       createBook(payload).then(({ name }) => {
         getSingleBook(name).then(() => {
           const patchPayload = { firebaseKey: name };
           updateBook(patchPayload).then(() => {
-            getBooksWithAuthors().then(showBooks);
+            getBooksWithAuthors(user.uid).then(showBooks);
           });
         });
       });
@@ -45,7 +46,7 @@ const formEvents = () => {
       };
 
       updateBook(payload).then(() => {
-        getBooksWithAuthors().then(showBooks);
+        getBooksWithAuthors(user.uid).then(showBooks);
       });
     }
 
@@ -55,12 +56,13 @@ const formEvents = () => {
         first_name: document.querySelector('#first_name').value,
         last_name: document.querySelector('#last_name').value,
         email: document.querySelector('#email').value,
-        favorite: document.querySelector('#favorite').checked
+        favorite: document.querySelector('#favorite').checked,
+        uid: user.uid
       };
       createAuthor(payload).then(({ name }) => {
         const patchPayload = { firebaseKey: name };
         updateAuthor(patchPayload).then(() => {
-          getAuthors().then(showAuthors);
+          getAuthors(user.uid).then(showAuthors);
         });
       });
     }
@@ -76,7 +78,7 @@ const formEvents = () => {
       };
 
       updateAuthor(payload).then(() => {
-        getAuthors().then(showAuthors);
+        getAuthors(user.uid).then(showAuthors);
       });
     }
   });

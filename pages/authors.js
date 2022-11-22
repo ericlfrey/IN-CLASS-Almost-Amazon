@@ -22,7 +22,7 @@ const showAuthors = (array) => {
       domString += `
     <div class="card" style="width: 18rem;">
       <div class="card-body">
-        <div class="fav-star">
+        <div class="fav-star" style="height: 26px;">
         ${item.favorite ? '<span class="badge bg-danger"><i class="fa fa-heart" aria-hidden="true"></i></span>' : '<span></span>'}
         </div>
         <h5 class="card-title">${item.first_name} ${item.last_name}</h5>
