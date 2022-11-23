@@ -30,7 +30,7 @@ const domEvents = (user) => {
           getBookDetails(firebaseKey).then(viewBook);
           // eslint-disable-next-line no-alert
         } else if (window.confirm('Want to add an Author?')) {
-          addAuthorForm(user.uid);
+          addAuthorForm();
         }
       });
     }

@@ -22,7 +22,7 @@ const addBookForm = (uid, obj = {}) => {
       </div>
       <div class="form-group">
         <label for="price">Price</label>
-        <input type="text" class="form-control" id="price" placeholder="Book Price" value="${obj.price || ''}" required>
+        <input type="number" class="form-control" id="price" placeholder="Book Price" value="${obj.price || ''}" required>
       </div>
       <div class="form-group" id="select-author">
       </div>
