@@ -14,13 +14,13 @@ import {
 } from '../api/mergedData';
 import viewBook from '../pages/viewBook';
 
-const domEvents = () => {
+const domEvents = (user) => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
     // *BOOKS*
 
     // CLICK EVENT FOR SHOWING FORM FOR ADDING A BOOK
     if (e.target.id.includes('add-book-btn')) {
-      addBookForm();
+      addBookForm(user.uid);
     }
     // CLICK EVENT FOR VIEW BOOK DETAILS
     if (e.target.id.includes('view-book-btn')) {
@@ -37,7 +37,7 @@ const domEvents = () => {
     // CLICK EVENT EDITING/UPDATING A BOOK
     if (e.target.id.includes('edit-book-btn')) {
       const [, firebaseKey] = e.target.id.split('--');
-      getSingleBook(firebaseKey).then((bookObj) => addBookForm(bookObj));
+      getSingleBook(firebaseKey).then((bookObj) => addBookForm(user.uid, bookObj));
     }
     // CLICK EVENT FOR DELETING A BOOK
     if (e.target.id.includes('delete-book')) {
@@ -45,7 +45,7 @@ const domEvents = () => {
       if (window.confirm('Want to delete?')) {
         const [, firebaseKey] = e.target.id.split('--');
         deleteBook(firebaseKey).then(() => {
-          getBooksWithAuthors().then(showBooks);
+          getBooksWithAuthors(user.uid).then(showBooks);
         });
       }
     }
@@ -58,7 +58,7 @@ const domEvents = () => {
     }
     // CLICK EVENT FOR FILTERING FAVORITE AUTHORS
     if (e.target.id === 'filter-author-btn') {
-      filterFavAuthors().then(showAuthors);
+      filterFavAuthors(user.uid).then(showAuthors);
     }
     // CLICK EVENT FOR VIEW AUTHOR / BOOKS
     if (e.target.id.includes('view-author-btn')) {
@@ -76,7 +76,7 @@ const domEvents = () => {
       if (window.confirm('Want to delete?')) {
         const [, firebaseKey] = e.target.id.split('--');
         deleteAuthorBooksRelationship(firebaseKey).then(() => {
-          getAuthors().then(showAuthors);
+          getAuthors(user.uid).then(showAuthors);
         });
       }
     }

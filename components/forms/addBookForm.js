@@ -3,7 +3,7 @@ import renderToDOM from '../../utils/renderToDom';
 import selectAuthor from './selectAuthor';
 
 // USING THIS FORM FOR BOTH CREATE AND UPDATE
-const addBookForm = (obj = {}) => {
+const addBookForm = (uid, obj = {}) => {
   clearDom();
   const domString = `
   <h1>${obj.firebaseKey ? 'Edit Book Details' : 'Add New Book'}</h1>
@@ -22,7 +22,7 @@ const addBookForm = (obj = {}) => {
       </div>
       <div class="form-group">
         <label for="price">Price</label>
-        <input type="text" class="form-control" id="price" placeholder="Book Price" value="${obj.price || ''}" required>
+        <input type="number" class="form-control" id="price" placeholder="Book Price" value="${obj.price || ''}" required>
       </div>
       <div class="form-group" id="select-author">
       </div>
@@ -35,7 +35,7 @@ const addBookForm = (obj = {}) => {
     </form>`;
 
   renderToDOM('#form-container', domString);
-  selectAuthor(`${obj.author_id || ''}`);
+  selectAuthor(uid, `${obj.author_id || ''}`);
 };
 
 export default addBookForm;

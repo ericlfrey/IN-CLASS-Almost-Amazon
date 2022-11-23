@@ -4,6 +4,10 @@ import renderToDOM from '../utils/renderToDom';
 const emptyAuthors = () => {
   const domString = '<h1>No Authors</h1>';
   renderToDOM('#store', domString);
+  const btnString = `
+  <button class="btn btn-success btn-lg mb-4" id="add-author-btn">Add An Author</button>
+  <button class="btn btn-success btn-lg mb-4" id="filter-author-btn">Favorite Authors</button>`;
+  renderToDOM('#add-button', btnString);
 };
 
 const showAuthors = (array) => {
@@ -22,7 +26,7 @@ const showAuthors = (array) => {
       domString += `
     <div class="card" style="width: 18rem;">
       <div class="card-body">
-        <div class="fav-star">
+        <div class="fav-star" style="height: 26px;">
         ${item.favorite ? '<span class="badge bg-danger"><i class="fa fa-heart" aria-hidden="true"></i></span>' : '<span></span>'}
         </div>
         <h5 class="card-title">${item.first_name} ${item.last_name}</h5>
