@@ -7,7 +7,7 @@ const selectBooks = (arr) => {
   arr.forEach((item) => {
     domString += `
   <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="${item.firebaseKey}" id="bookCheck--${item.firebaseKey}">
+  <input class="form-check-input select-book" type="checkbox" value="${item.firebaseKey}" id="bookCheck--${item.firebaseKey}">
   <label class="form-check-label" for="flexCheckDefault">
     ${item.title}
   </label>

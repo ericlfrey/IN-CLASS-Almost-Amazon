@@ -30,8 +30,8 @@ const domEvents = (user) => {
           getBookDetails(firebaseKey).then(viewBook);
           // eslint-disable-next-line no-alert
         } else if (window.confirm('Want to add an Author?')) {
-          getBooksWithoutAuthors(user.uid).then((foo) => {
-            addAuthorForm({}, foo);
+          getBooksWithoutAuthors(user.uid).then((arr) => {
+            addAuthorForm({}, arr);
           });
         }
       });
