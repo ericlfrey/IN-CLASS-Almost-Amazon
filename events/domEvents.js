@@ -3,7 +3,7 @@ import {
 } from '../api/authorData';
 import { showAuthors } from '../pages/authors';
 import {
-  deleteBook, getSingleBook
+  deleteBook, getBooksWithoutAuthors, getSingleBook
 } from '../api/bookData';
 import { showBooks } from '../pages/books';
 import addBookForm from '../components/forms/addBookForm';
@@ -30,7 +30,9 @@ const domEvents = (user) => {
           getBookDetails(firebaseKey).then(viewBook);
           // eslint-disable-next-line no-alert
         } else if (window.confirm('Want to add an Author?')) {
-          addAuthorForm();
+          getBooksWithoutAuthors(user.uid).then((arr) => {
+            addAuthorForm({}, arr);
+          });
         }
       });
     }
@@ -68,7 +70,7 @@ const domEvents = (user) => {
     // CLICK EVENT FOR EDITING AN AUTHOR
     if (e.target.id.includes('update-author')) {
       const [, firebaseKey] = e.target.id.split('--');
-      getSingleAuthor(firebaseKey).then((authorObj) => addAuthorForm(authorObj));
+      getSingleAuthor(firebaseKey).then((authorObj) => addAuthorForm(authorObj, []));
     }
     // CLICK EVENT FOR DELETING AN AUTHOR / BOOKS
     if (e.target.id.includes('delete-author-btn')) {

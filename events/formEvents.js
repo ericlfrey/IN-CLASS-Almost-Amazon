@@ -1,12 +1,16 @@
 import {
-  createAuthor, getAuthors, updateAuthor
+  createAuthor,
+  getAuthorBooks,
+  getAuthors, updateAuthor
 } from '../api/authorData';
 import {
   createBook, getSingleBook, updateBook
 } from '../api/bookData';
-import { getBooksWithAuthors } from '../api/mergedData';
+import { getAuthorDetails, getBooksWithAuthors } from '../api/mergedData';
 import { showAuthors } from '../pages/authors';
 import { showBooks } from '../pages/books';
+import viewAuthorBooks from '../pages/viewAuthorBooks';
+// import viewAuthorBooks from '../pages/viewAuthorBooks';
 
 const formEvents = (user) => {
   document.querySelector('#main-container').addEventListener('submit', (e) => {
@@ -61,8 +65,35 @@ const formEvents = (user) => {
       };
       createAuthor(payload).then(({ name }) => {
         const patchPayload = { firebaseKey: name };
-        updateAuthor(patchPayload).then(() => {
-          getAuthors(user.uid).then(showAuthors);
+        updateAuthor(patchPayload).then((author) => {
+          const authorId = author.firebaseKey;
+          const booksWoAuthors = document.querySelectorAll('.select-book');
+          [...booksWoAuthors].forEach((item) => {
+            if (item.checked) {
+              getSingleBook(item.value).then((book) => {
+                const { firebaseKey } = book;
+                const authorPayload = {
+                  title: book.title,
+                  description: book.description,
+                  image: book.image,
+                  price: book.price,
+                  author_id: authorId,
+                  sale: book.sale,
+                  firebaseKey,
+                };
+                updateBook(authorPayload);
+              });
+            }
+          });
+          getAuthors(user.uid).then(() => {
+            getAuthorBooks(authorId).then((books) => {
+              if (books.length > 0) {
+                getAuthorDetails(authorId).then(viewAuthorBooks);
+              } else {
+                getAuthors(user.uid).then(showAuthors);
+              }
+            });
+          });
         });
       });
     }

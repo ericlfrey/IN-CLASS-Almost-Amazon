@@ -89,11 +89,29 @@ const booksOnSale = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+// FILTER BOOKS WITHOUT AUTHORS
+const getBooksWithoutAuthors = (uid) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/books.json?orderBy="uid"&equalTo="${uid}"`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const books = Object.values(data).filter((item) => !item.author_id);
+      const bookTitles = books.map((item) => item);
+      resolve(bookTitles);
+    })
+    .catch(reject);
+});
+
 export {
   getBooks,
   createBook,
   booksOnSale,
   deleteBook,
   getSingleBook,
-  updateBook
+  updateBook,
+  getBooksWithoutAuthors
 };

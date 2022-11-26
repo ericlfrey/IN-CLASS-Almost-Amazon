@@ -1,7 +1,8 @@
 import clearDom from '../../utils/clearDom';
 import renderToDOM from '../../utils/renderToDom';
+import selectBooks from './selectBooks';
 
-const addAuthorForm = (obj = {}) => {
+const addAuthorForm = (obj = {}, arr = []) => {
   clearDom();
   const domString = `
     <h1>${obj.firebaseKey ? 'Edit Author' : 'Submit New Author'}</h1>
@@ -24,10 +25,14 @@ const addAuthorForm = (obj = {}) => {
        Favorite
         </label>
       </div>
+      <div id="books-wo-authors"></div>
       <button type="submit" class="btn btn-primary mt-3">Submit Author</button>
     </form>`;
 
   renderToDOM('#form-container', domString);
+  if (arr.length > 0) {
+    selectBooks(arr);
+  }
 };
 
 export default addAuthorForm;
